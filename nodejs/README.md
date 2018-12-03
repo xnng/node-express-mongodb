@@ -97,6 +97,8 @@ https://nodejs.org/dist/latest-v10.x/docs/api/index.html
 
 - 流和管道
 
+  提高文件读写性能
+
   ```js
   // https://nodejs.org/dist/latest-v10.x/docs/api/stream.html#stream_event_data
   var fs = require("fs");
@@ -108,4 +110,25 @@ https://nodejs.org/dist/latest-v10.x/docs/api/index.html
   // });
   //管道
   myReadStream.pipe(myWriteStream);
+  ```
+
+- web 服务器
+
+  ```js
+  var http = require("http");
+
+  var obj = {
+    name: "xnng",
+    age: 18
+  };
+  var server = http.createServer(function(request, response) {
+    console.log("request received");
+    response.writeHead(200, { "Content-Type": "application/json" });
+    // response.writeHead(200, { "Content-Type": "application/octet-stream" });
+    response.write(JSON.stringify(obj));
+    response.end();
+  });
+
+  server.listen(3000);
+  console.log("servet start at http://localhost:3000");
   ```

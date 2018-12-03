@@ -55,10 +55,28 @@
 
 //流和管道
 // https://nodejs.org/dist/latest-v10.x/docs/api/stream.html#stream_event_data
-var fs = require("fs");
-var myReadStream = fs.createReadStream(__dirname + "/README.md", "utf8");
-var myWriteStream = fs.createWriteStream((__dirname = "test.txt"));
-// myReadStream.on("data", function(thunk) {
-//   myWriteStream.write(thunk);
+// var fs = require("fs");
+// var myReadStream = fs.createReadStream(__dirname + "/README.md", "utf8");
+// var myWriteStream = fs.createWriteStream((__dirname = "test.txt"));
+// // myReadStream.on("data", function(thunk) {
+// //   myWriteStream.write(thunk);
+// // });
+// myReadStream.pipe(myWriteStream)
+
+//web 服务器
+// var http = require("http");
+
+// var obj = {
+//   name: "xnng",
+//   age: 18
+// };
+// var server = http.createServer(function(request, response) {
+//   console.log("request received");
+//   response.writeHead(200, { "Content-Type": "application/json" });
+//   // response.writeHead(200, { "Content-Type": "application/octet-stream" });
+//   response.write(JSON.stringify(obj));
+//   response.end();
 // });
-myReadStream.pipe(myWriteStream)
+
+// server.listen(3000);
+// console.log("servet start at http://localhost:3000");
