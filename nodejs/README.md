@@ -1,5 +1,7 @@
 Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
 
+https://nodejs.org/dist/latest-v10.x/docs/api/index.html
+
 - 全局对象
 
   ```js
@@ -38,7 +40,7 @@ Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
 - 模块
 
   - demo1.js
-  
+
   ```js
   var counter = function(arr) {
     return `There are ${arr.length} elements in the array.`;
@@ -55,7 +57,7 @@ Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
   ```
 
   - demo2.js
-  
+
   ```js
   var fun = require("./dem1");
   console.log(fun.counter([1, 2, 3]));
@@ -76,4 +78,21 @@ Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
 
 - 读写文件
 
+  ```js
+  var fs = require("fs");
+  //同步
+  var readFile = fs.readFileSync("./README.md", "utf8");
+  fs.writeFileSync("./test.txt", readFile);
+  fs.unlinkSync("./test.txt");
+  //异步
+  var readFile2 = fs.readFile("./README.md", "utf8", function(err, data) {
+    fs.writeFile("./test.txt", data, function() {
+      console.log("file has created");
+      fs.unlink("./test.txt", function() {
+        console.log("file has removed");
+      });
+    });
+  });
+  ```
 
+- 流和管道
