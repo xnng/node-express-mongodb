@@ -37,6 +37,8 @@ Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
 
 - 模块
 
+  - demo1.js
+  
   ```js
   var counter = function(arr) {
     return `There are ${arr.length} elements in the array.`;
@@ -52,8 +54,10 @@ Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
   };
   ```
 
+  - demo2.js
+  
   ```js
-  var fun = require("./demo");
+  var fun = require("./dem1");
   console.log(fun.counter([1, 2, 3]));
   console.log(fun.adder(1, 2));
   ```
