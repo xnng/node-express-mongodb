@@ -1,6 +1,5 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var fs = require("fs");
 
 // 文件上传
 var multer = require("multer");
@@ -20,6 +19,19 @@ var jsonParser = bodyParser.json();
 // 中间件，处理 post 提交的 普通表单数据 (application/x-www-form-urlencoded)
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+//自定义中间件
+app.use("/home", function(req, res, next) {
+  console.log("first middleware");
+  next();
+});
+app.use("/home", function(req, res, next) {
+  console.log("second middleware");
+  res.send("ok");
+});
+
+//官方中间件，响应静态文件
+app.use("/static", express.static("public"));
+
 // 路由参数
 // http://localhost:3000/test/123
 app.get("/test/:id", function(req, res) {
@@ -37,14 +49,22 @@ app.post("/", urlencodedParser, function(req, res) {
   res.send(req.body);
 });
 
+//文件上传
 app.get("/form", function(req, res) {
-  var form = fs.readFileSync("./form.html", { encoding: "utf8" });
-  res.send(form);
+  res.sendFile(__dirname + "/form.html");
 });
 
 app.post("/upload", upload.single("file"), function(req, res) {
   res.send("upload successed");
 });
+
+//路由中间件
+// http://localhost:3000/index
+// http://localhost:3000/users
+var indexRouter = require("./routers/index");
+var usersRouter = require("./routers/users");
+app.use("/index", indexRouter);
+app.use("/users", usersRouter);
 
 app.listen(3000);
 console.log("server start at http://localhost:3000");
