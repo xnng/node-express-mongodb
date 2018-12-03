@@ -114,18 +114,16 @@
 // server.listen(3000);
 // console.log("servet start at http://localhost:3000");
 
-//
-var http = require("http");
-var queryString = require("querystring");
 
-var server = http.createServer(function(request, response) {
-  var currentData = "";
-  request.on("data", function(data) {
-    currentData += data;
-    response.writeHead(200, { ContentType: "text/json;charset=utf-8" });
-    response.end(JSON.stringify(queryString.parse(currentData)));
-  });
-});
-
-server.listen(3000);
-console.log("servet start at http://localhost:3000");
+// var http = require("http");
+// var queryString = require("querystring");
+// var server = http.createServer(function(request, response) {
+//   var currentData = "";
+//   request.on("data", function(data) {
+//     currentData += data;
+//     response.writeHead(200, { ContentType: "text/json;charset=utf-8" });
+//     response.end(JSON.stringify(queryString.parse(currentData)));
+//   });
+// });
+// server.listen(3000);
+// console.log("servet start at http://localhost:3000");
