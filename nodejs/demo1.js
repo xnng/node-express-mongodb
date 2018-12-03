@@ -38,17 +38,27 @@
 // MyEmiter.emit("someEvent");
 
 //读写文件
-var fs = require("fs");
+// var fs = require("fs");
 //同步
-var readFile = fs.readFileSync("./README.md", "utf8");
-fs.writeFileSync("./test.txt", readFile);
-fs.unlinkSync("./test.txt");
+// var readFile = fs.readFileSync("./README.md", "utf8");
+// fs.writeFileSync("./test.txt", readFile);
+// fs.unlinkSync("./test.txt");
 //异步
-var readFile2 = fs.readFile("./README.md", "utf8", function(err, data) {
-  fs.writeFile("./test.txt", data, function() {
-    console.log("file has created");
-    fs.unlink("./test.txt", function() {
-      console.log("file has removed");
-    });
-  });
-});
+// var readFile2 = fs.readFile("./README.md", "utf8", function(err, data) {
+//   fs.writeFile("./test.txt", data, function() {
+//     console.log("file has created");
+//     fs.unlink("./test.txt", function() {
+//       console.log("file has removed");
+//     });
+//   });
+// });
+
+//流和管道
+// https://nodejs.org/dist/latest-v10.x/docs/api/stream.html#stream_event_data
+var fs = require("fs");
+var myReadStream = fs.createReadStream(__dirname + "/README.md", "utf8");
+var myWriteStream = fs.createWriteStream((__dirname = "test.txt"));
+// myReadStream.on("data", function(thunk) {
+//   myWriteStream.write(thunk);
+// });
+myReadStream.pipe(myWriteStream)

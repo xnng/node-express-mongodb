@@ -96,3 +96,16 @@ https://nodejs.org/dist/latest-v10.x/docs/api/index.html
   ```
 
 - 流和管道
+
+  ```js
+  // https://nodejs.org/dist/latest-v10.x/docs/api/stream.html#stream_event_data
+  var fs = require("fs");
+  var myReadStream = fs.createReadStream(__dirname + "/README.md", "utf8");
+  var myWriteStream = fs.createWriteStream((__dirname = "test.txt"));
+  //流
+  // myReadStream.on("data", function(thunk) {
+  //   myWriteStream.write(thunk);
+  // });
+  //管道
+  myReadStream.pipe(myWriteStream);
+  ```
