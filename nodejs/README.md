@@ -130,7 +130,7 @@ https://nodejs.org/dist/latest-v10.x/docs/api/index.html
   });
 
   server.listen(3000);
-  console.log("servet start at http://localhost:3000");
+  console.log("server start at http://localhost:3000");
   ```
 
 - 路由
@@ -161,7 +161,7 @@ https://nodejs.org/dist/latest-v10.x/docs/api/index.html
   });
 
   server.listen(3000);
-  console.log("servet start at http://localhost:3000");
+  console.log("server start at http://localhost:3000");
   ```
 
 - 获取 Get/Post 请求发送的数据
@@ -183,7 +183,7 @@ https://nodejs.org/dist/latest-v10.x/docs/api/index.html
   });
 
   server.listen(3000);
-  console.log("servet start at http://localhost:3000");
+  console.log("server start at http://localhost:3000");
   ```
 
   - Post 请求
@@ -218,5 +218,5 @@ https://nodejs.org/dist/latest-v10.x/docs/api/index.html
   });
 
   server.listen(3000);
-  console.log("servet start at http://localhost:3000");
+  console.log("server start at http://localhost:3000");
   ```
