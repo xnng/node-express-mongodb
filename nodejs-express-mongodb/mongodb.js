@@ -1,16 +1,46 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://ali.xnngs.cn:27017/test");
+mongoose.connect(
+  "mongodb://root:root@ali.xnngs.cn:27017/test?authSource=admin"
+);
 
-const Schema = mongoose.Schema;
-
-const todoSchema = new Schema({
-  item: String
+const db = mongoose.connection;
+db.on("error", err => {
+  console.log(err);
 });
 
-var test = mongoose.model("test", todoSchema);
+db.once("open", () => {
+  console.log("-----------" + "we're connected!");
 
-var insertItem = test({ item: "buy flowers" }).save(function(err) {
-  if (err) throw err;
-  console.log("item saved");
+  var mySchema = new mongoose.Schema({
+    name: String,
+    date: Date
+  });
+
+  var user = mongoose.model("user", mySchema);
+  // 1、插入数据
+  user.create(
+    { name: "xnng", date: new Date() },
+    { name: "gnnx", date: new Date() },
+    (err, doc1, doc2) => {
+      console.log("-----------" + doc1, doc2);
+      // 2、更新数据
+      user.update(
+        { name: "xnng" },
+        { $set: { date: "2020-01-01" } },
+        { multi: true },
+        (err, updateDoc) => {
+          console.log("-----------" + updateDoc);
+          // 3、删除数据
+          user.remove({ name: "gnnx" }, (err, removeDoc) => {
+            console.log("-----------" + removeDoc);
+            // 4、查询数据
+            user.find({ name: "xnng" }, (err, findDoc) => {
+              console.log("-----------" + findDoc);
+            });
+          });
+        }
+      );
+    }
+  );
 });

@@ -1,12 +1,46 @@
-import express from "express";
+const mongoose = require("mongoose");
 
-const app = express();
-const port = process.env.PORT || 4000;
+mongoose.connect(
+  "mongodb://root:root@ali.xnngs.cn:27017/test?authSource=admin"
+);
 
-app.get("/", (req, res) => {
-  res.send("\n\nHello, world!\n\n");
+const db = mongoose.connection;
+db.on("error", err => {
+  console.log(err);
 });
 
-app.listen(port, () => {
-  console.log(`listening on port ${port}`);
+db.once("open", () => {
+  console.log("-----------" + "we're connected!");
+
+  var mySchema = new mongoose.Schema({
+    name: String,
+    date: Date
+  });
+
+  var user = mongoose.model("user", mySchema);
+  // 1、插入数据
+  user.create(
+    { name: "xnng", date: new Date() },
+    { name: "gnnx", date: new Date() },
+    (err, doc1, doc2) => {
+      console.log("-----------" + doc1, doc2);
+      // 2、更新数据
+      user.update(
+        { name: "xnng" },
+        { $set: { date: "2020-01-01" } },
+        { multi: true },
+        (err, updateDoc) => {
+          console.log("-----------" + updateDoc);
+          // 3、删除数据
+          user.remove({ name: "gnnx" }, (err, removeDoc) => {
+            console.log("-----------" + removeDoc);
+            // 4、查询数据
+            user.find({ name: "xnng" }, (err, findDoc) => {
+              console.log("-----------" + findDoc);
+            });
+          });
+        }
+      );
+    }
+  );
 });
